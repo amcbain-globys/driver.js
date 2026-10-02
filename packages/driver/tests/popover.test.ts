@@ -74,6 +74,16 @@ describe("popover rendering", () => {
     expect(navButton("prev")?.innerHTML).toBe("Back");
   });
 
+  it("uses custom close label text", () => {
+    const d = createDriver({ animate: false });
+    d.highlight({
+      element: "#intro",
+      popover: { closeBtnLabel: "Click to close" },
+    });
+
+    expect(navButton("close")?.ariaLabel).toBe("Click to close");
+  });
+
   it("renders progress text when enabled", () => {
     const d = createDriver({ animate: false, showProgress: true, steps: SAMPLE_STEPS });
     d.drive();

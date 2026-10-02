@@ -28,6 +28,7 @@ export type Popover = {
   doneBtnText?: string;
   nextBtnText?: string;
   prevBtnText?: string;
+  closeBtnLabel?: string;
 
   // Called after the popover is rendered
   onPopoverRender?: (popover: PopoverDOM, opts: HookOpts) => void;
@@ -65,6 +66,7 @@ export type PopoverRenderOptions = {
   progressText: string;
   nextBtnText: string;
   prevBtnText: string;
+  closeBtnLabel: string;
 
   // Style the next button as the tour's done button.
   doneButton?: boolean;
@@ -96,12 +98,22 @@ export function renderPopover(anchor: Element, options: PopoverRenderOptions): P
   const popover = createPopover();
   document.body.appendChild(popover.wrapper);
 
-  const { title, description, showButtons, disableButtons, showProgress, nextBtnText, prevBtnText, progressText } =
-    options;
+  const {
+    title,
+    description,
+    showButtons,
+    disableButtons,
+    showProgress,
+    nextBtnText,
+    prevBtnText,
+    progressText,
+    closeBtnLabel,
+  } = options;
 
   popover.nextButton.innerHTML = nextBtnText;
   popover.previousButton.innerHTML = prevBtnText;
   popover.progress.innerHTML = progressText;
+  popover.closeButton.ariaLabel = closeBtnLabel;
 
   if (options.doneButton) {
     popover.nextButton.classList.add("driver-popover-done-btn");
@@ -256,7 +268,6 @@ function createPopover(): PopoverDOM {
   const closeButton = document.createElement("button");
   closeButton.type = "button";
   closeButton.classList.add("driver-popover-close-btn");
-  closeButton.setAttribute("aria-label", "Close");
   closeButton.innerHTML = "&times;";
 
   const footer = document.createElement("footer");
