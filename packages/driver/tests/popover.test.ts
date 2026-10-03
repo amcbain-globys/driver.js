@@ -74,14 +74,25 @@ describe("popover rendering", () => {
     expect(navButton("prev")?.innerHTML).toBe("Back");
   });
 
-  it("uses custom close label text", () => {
+  it("labels the close button Close by default", () => {
     const d = createDriver({ animate: false });
-    d.highlight({
-      element: "#intro",
-      popover: { closeBtnLabel: "Click to close" },
-    });
+    d.highlight({ element: "#intro", popover: { title: "Intro" } });
 
-    expect(navButton("close")?.ariaLabel).toBe("Click to close");
+    expect(navButton("close")?.getAttribute("aria-label")).toBe("Close");
+  });
+
+  it("uses closeBtnLabel from the config", () => {
+    const d = createDriver({ animate: false, closeBtnLabel: "Fermer" });
+    d.highlight({ element: "#intro", popover: { title: "Intro" } });
+
+    expect(navButton("close")?.getAttribute("aria-label")).toBe("Fermer");
+  });
+
+  it("lets a step override closeBtnLabel", () => {
+    const d = createDriver({ animate: false, closeBtnLabel: "Fermer" });
+    d.highlight({ element: "#intro", popover: { title: "Intro", closeBtnLabel: "Schließen" } });
+
+    expect(navButton("close")?.getAttribute("aria-label")).toBe("Schließen");
   });
 
   it("renders progress text when enabled", () => {

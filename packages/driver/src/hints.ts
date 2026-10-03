@@ -49,7 +49,6 @@ export type HintPopover = {
   // that is only dismissed programmatically.
   showButton?: boolean;
   buttonText?: string;
-  closeBtnLabel?: string;
 
   // Runs instead of dismissing when the button is clicked, like a tour's
   // onNextClick takes over the default advance. Call dismiss() yourself to
@@ -83,7 +82,6 @@ export type HintsConfig = {
   // Defaults for every hint; a hint's own values win.
   beacon?: HintBeacon;
   buttonText?: string;
-  closeBtnLabel?: string;
   popoverClass?: string;
   popoverOffset?: number;
 
@@ -425,7 +423,7 @@ export function hints(config: HintsConfig = {}): Hints {
       progressText: "",
       nextBtnText: hintPopover.buttonText ?? currentConfig.buttonText ?? "Got it",
       prevBtnText: "",
-      closeBtnLabel: hintPopover.closeBtnLabel ?? currentConfig.closeBtnLabel ?? "Close",
+      closeBtnLabel: "Close",
 
       popoverClass: `driver-hint-popover ${hintPopover.popoverClass || currentConfig.popoverClass || ""}`.trim(),
 

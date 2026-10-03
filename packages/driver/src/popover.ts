@@ -98,22 +98,13 @@ export function renderPopover(anchor: Element, options: PopoverRenderOptions): P
   const popover = createPopover();
   document.body.appendChild(popover.wrapper);
 
-  const {
-    title,
-    description,
-    showButtons,
-    disableButtons,
-    showProgress,
-    nextBtnText,
-    prevBtnText,
-    progressText,
-    closeBtnLabel,
-  } = options;
+  const { title, description, showButtons, disableButtons, showProgress, nextBtnText, prevBtnText, progressText } =
+    options;
 
   popover.nextButton.innerHTML = nextBtnText;
   popover.previousButton.innerHTML = prevBtnText;
   popover.progress.innerHTML = progressText;
-  popover.closeButton.ariaLabel = closeBtnLabel;
+  popover.closeButton.setAttribute("aria-label", options.closeBtnLabel);
 
   if (options.doneButton) {
     popover.nextButton.classList.add("driver-popover-done-btn");
